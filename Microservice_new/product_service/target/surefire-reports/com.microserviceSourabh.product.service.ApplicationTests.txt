@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.microserviceSourabh.product.service.ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.521 s <<< FAILURE! - in com.microserviceSourabh.product.service.ApplicationTests
+com.microserviceSourabh.product.service.ApplicationTests  Time elapsed: 1.519 s  <<< ERROR!
+java.lang.IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration
+

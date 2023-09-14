@@ -1,0 +1,10 @@
+com\microserviceSourabh\product\service\model\Product.class
+com\microserviceSourabh\product\service\model\Product$ProductBuilder.class
+com\microserviceSourabh\product\service\dto\ProductRequest$ProductRequestBuilder.class
+com\microserviceSourabh\product\service\repository\ProductRepository.class
+com\microserviceSourabh\product\service\service\ProductService.class
+com\microserviceSourabh\product\service\dto\ProductRequest.class
+com\microserviceSourabh\product\service\dto\ProductResponse$ProductResponseBuilder.class
+com\microserviceSourabh\product\service\Application.class
+com\microserviceSourabh\product\service\controller\ProductController.class
+com\microserviceSourabh\product\service\dto\ProductResponse.class
