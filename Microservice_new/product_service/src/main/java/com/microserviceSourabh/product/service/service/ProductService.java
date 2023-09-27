@@ -21,6 +21,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+
 public class ProductService {
     private final ProductRepository productRepository;
 

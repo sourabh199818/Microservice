@@ -1,11 +1,16 @@
 package com.mircoservice.sourabh.order.service.controller;
 
 
+import com.google.common.collect.ComputationException;
 import com.mircoservice.sourabh.order.service.dto.OrderRequest;
 import com.mircoservice.sourabh.order.service.serivce.OrderService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/api/order")
@@ -16,12 +21,18 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String placeOrder(@RequestBody OrderRequest orderRequest)
+    @CircuitBreaker(name = "inventory", fallbackMethod = "fallbackMethod")
+    @TimeLimiter(name = "inventory")
+    public CompletableFuture<String> placeOrder(@RequestBody OrderRequest orderRequest)
     {
-        orderService.placeOrder(orderRequest);
-        return "order placed Successfully";
+        return java.util.concurrent.CompletableFuture.supplyAsync(() -> orderService.placeOrder(orderRequest));
+
     }
 
 
-//    @GetMapping
+    public  CompletableFuture<String> fallbackMethod(OrderRequest orderRequest, RuntimeException runtimeException)
+    {
+        return java.util.concurrent.CompletableFuture.supplyAsync(() -> "Oops! Spmwthing went wrong");
+    }
+
 }
