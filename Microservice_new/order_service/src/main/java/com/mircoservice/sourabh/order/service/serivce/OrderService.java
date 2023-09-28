@@ -3,12 +3,10 @@ package com.mircoservice.sourabh.order.service.serivce;
 import com.mircoservice.sourabh.order.service.dto.InventoryResponse;
 import com.mircoservice.sourabh.order.service.dto.OrderLineItemDto;
 import com.mircoservice.sourabh.order.service.dto.OrderRequest;
-import com.mircoservice.sourabh.order.service.event.OrderPlacedEvent;
 import com.mircoservice.sourabh.order.service.model.Order;
 import com.mircoservice.sourabh.order.service.model.OrderLineItems;
 import com.mircoservice.sourabh.order.service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -25,9 +23,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webCilentBuilder;
-    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
-    public String placeOrder(OrderRequest orderRequest) {
+    public void placeOrder(OrderRequest orderRequest) {
 
         Order order = new Order();
 
@@ -57,8 +54,6 @@ public class OrderService {
                if(Boolean.TRUE.equals(allProductsInStock))
                {
                    orderRepository.save(order);
-                   kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
-                   return "order placed Successfully";
                }else
                {
                    throw  new IllegalArgumentException("PRODUCT IS OUT OF STOCK! Please Come back later");
