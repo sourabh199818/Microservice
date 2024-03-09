@@ -61,7 +61,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 		return ProductRequest.builder()
 				.name("Iphone 13")
 				.description("Iphone 13")
-				.price(BigDecimal.valueOf(1200))
+				.price(BigDecimal.valueOf(12000))
 				. build();
 
 
